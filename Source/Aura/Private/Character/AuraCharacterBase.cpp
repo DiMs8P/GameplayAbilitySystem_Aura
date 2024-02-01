@@ -2,7 +2,6 @@
 
 
 #include "Character/AuraCharacterBase.h"
-#include "EnhancedInputSubsystems.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
@@ -17,13 +16,4 @@ AAuraCharacterBase::AAuraCharacterBase()
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-
-    check(DefaultMappingContext);
-    if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
-    {
-        if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-        {
-            Subsystem->AddMappingContext(DefaultMappingContext, 0);
-        }
-    }
 }
