@@ -7,6 +7,7 @@
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
+    // TODO Mb add bReplicates = true
     Super::PlayerTick(DeltaTime);
     CursorTrace();
 }
