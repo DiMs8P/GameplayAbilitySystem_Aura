@@ -2,11 +2,14 @@
 
 
 #include "Character/AuraCharacter.h"
+
+#include "AbilitySystemComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Player/AuraPlayerState.h"
 
 
 AAuraCharacter::AAuraCharacter()
@@ -34,6 +37,20 @@ AAuraCharacter::AAuraCharacter()
     FollowCamera->bUsePawnControlRotation = false;
     
     PrimaryActorTick.bCanEverTick = false;
+}
+
+void AAuraCharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+        
+    InitAbilityActorInfo();
+}
+
+void AAuraCharacter::OnRep_PlayerState()
+{
+    Super::OnRep_PlayerState();
+
+    InitAbilityActorInfo();
 }
 
 void AAuraCharacter::BeginPlay()
@@ -78,4 +95,16 @@ void AAuraCharacter::Move(const FInputActionValue& InputActionValue)
         AddMovementInput(ForwardDirection, MovementVector.Y);
         AddMovementInput(RightDirection, MovementVector.X);
     }
+}
+
+void AAuraCharacter::InitAbilityActorInfo()
+{
+    AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+    check(AuraPlayerState);
+
+    UAbilitySystemComponent* PSAbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
+    PSAbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
+    
+    AbilitySystemComponent = PSAbilitySystemComponent;
+    AttributeSet = AuraPlayerState->GetAttributeSet();
 }
