@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
+#include "AuraAttributeHelper.h"
 #include "AuraAttributeSet.generated.h"
 
 /**
@@ -33,13 +35,17 @@ private:
 public:
     UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", ReplicatedUsing=OnRep_Health)
     FGameplayAttributeData Health;
+    ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health)
 
     UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", ReplicatedUsing=OnRep_MaxHealth)
     FGameplayAttributeData MaxHealth;
+    ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth)
 
     UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", ReplicatedUsing=OnRep_Mana)
     FGameplayAttributeData Mana;
+    ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana)
 
     UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes", ReplicatedUsing=OnRep_MaxMana)
     FGameplayAttributeData MaxMana;
+    ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana)
 };
