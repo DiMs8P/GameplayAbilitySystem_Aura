@@ -23,6 +23,7 @@ protected:
     void OnWidgetControllerSet();
     
 protected:
+    // TODO set as AuraWidgetController
     UPROPERTY(BlueprintReadOnly)
     TObjectPtr<UObject> WidgetController;
 };
