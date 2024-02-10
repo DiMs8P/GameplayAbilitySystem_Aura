@@ -12,6 +12,7 @@ void AAuraHUD::BeginPlay()
     Super::BeginPlay();
 }
 
+// TODO refactor
 UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
     if (OverlayWidgetController)
@@ -21,6 +22,7 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 
     OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
     OverlayWidgetController->SetWidgetControllerParams(WCParams);
+    OverlayWidgetController->BindCallbacksToDependencies();
 
     return OverlayWidgetController;
 }
@@ -35,6 +37,7 @@ void AAuraHUD::InitOverlay(const FWidgetControllerParams& WCParams)
 
     UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WCParams);
     OverlayWidget->SetWidgetController(WidgetController);
-    
+
+    WidgetController->BroadcastInitialValues();
     Widget->AddToViewport();
 }
